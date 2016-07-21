@@ -1,0 +1,75 @@
+{
+	"build_systems":
+	[
+	],
+	"folders":
+	[
+		
+		{
+			"name": "Configuration",
+			"path": "grails-app/conf"
+		},
+		{
+			"name": "Init",
+			"path": "grails-app/init"
+		},
+		{
+			"name": "Domain Objects",
+			"path": "grails-app/domain"
+		},
+		{
+			"name": "Controllers",
+			"path": "grails-app/controllers"
+		},
+		{
+			"name": "Services",
+			"path": "grails-app/services"
+		},
+		{
+			"name": "Jobs",
+			"path": "grails-app/jobs"
+		},
+		{
+			"name": "Views",
+			"path": "grails-app/views"
+		},
+		{
+			"name": "Assets",
+			"path": "grails-app/assets"
+		},
+		{
+			"name": "Internationalization",
+			"path": "grails-app/i18n"
+		},
+		
+		{
+			"name": "Groovy Source",
+			"path": "src/main/groovy"
+		},
+		{
+			"name": "Java Source",
+			"path": "src/main/java"
+		},
+		{
+			"name": "Unit Tests",
+			"path": "src/test"
+		},
+		{
+			"name": "Integeration Tests",
+			"path": "src/integration-test"
+		},
+		
+		{
+			"path": "grails-app/migrations"
+		},
+		{
+			"name": "RottFoleder",
+			"path": ".",
+			//"folder_exclude_patterns": ["*"],
+			//"file_exclude_patterns": ["*.log","*.project","*.classpath","*.sublime-project"]
+		}
+	],
+	"settings":
+	{
+	}
+}

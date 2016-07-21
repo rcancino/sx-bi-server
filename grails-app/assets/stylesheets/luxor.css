@@ -1,0 +1,161 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS file within this directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the top of the
+* compiled file, but it's generally better to create a new file per style scope.
+*
+*= require bootstrap
+*= require font-awesome
+*= require_self
+*/
+body{
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: #f7f7f7;
+}
+.navbar{
+	/*margin-bottom: 10px;*/
+}
+
+.form-group {
+    margin-bottom: 8px;
+}
+
+.toolbar-panel{
+    
+    /*margin-bottom: 10px;*/
+    padding-bottom: 5px;
+    padding-top: 2px;
+    /*padding-left: 2px;*/
+
+}
+
+.uppercase-field {
+  text-transform: uppercase;
+}
+
+input:invalid, select:invalid, textarea:invalid {
+	background: #fff3f3;
+	border-color: #ffaaaa;
+	color: #cc0000;
+}
+
+input:invalid:focus, select:invalid:focus, textarea:invalid:focus {
+	   -moz-box-shadow: 0 0 0.5em #ffaaaa;
+	-webkit-box-shadow: 0 0 0.5em #ffaaaa;
+	        box-shadow: 0 0 0.5em #ffaaaa;
+}
+
+/*
+* Angular forms styles
+*/
+form .ng-invalid.ng-dirty {
+	border: 1px solid #b92c28;
+    background-color: #fff3f3;
+}
+form .ng-valid.ng-dirty {
+	 border:1px solid green;
+}
+span.summary.ng-invalid {
+	color: red; font-weight: bold; 
+}
+span.summary.ng-valid {
+	color: green; 
+}
+
+#carousel-home {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.form-panel{
+    /*margin-bottom: 10px;*/
+    margin-top: 10px;
+    padding-bottom: 5px;
+    padding-top: 10px;
+    /*padding-left: 2px;*/
+}
+
+.row-header{
+  margin-top: 5px;
+  /*padding-bottom: 5px;*/
+}
+.grid-panel{
+    /*margin-bottom: 10px;*/
+    margin-top: 5px;
+    padding-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    /*padding-left: 2px;*/
+
+}
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.logo-panel{
+  background: url(../images/logo.png) 100% 100% no-repeat transparent;
+  background-size: contain;
+  filter: blur(10px);  
+  -webkit-filter: blur(10px);
+  width: 100%
+}
+.vertical-center{
+  min-height: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  align-items:center;
+}
+
+.vertical-align {
+    min-height: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+.catalogo-panel{
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.filterDialog {
+  font-size: 12px;
+}
+.small-grid {
+  font-size: 12px; 
+}
+.slim-column {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow:ellipsis;
+}
+
+.side-bar{
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  margin-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+}
+.document-panel{
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  margin-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+}
+

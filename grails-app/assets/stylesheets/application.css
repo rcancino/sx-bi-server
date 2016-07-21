@@ -1,0 +1,37 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS file within this directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the top of the
+* compiled file, but it's generally better to create a new file per style scope.
+*
+*= require bootstrap/css/bootstrap.css
+*= require font-awesome/css/font-awesome.min.css
+*= require plugins/iCheck/custom.css
+*= require toastr/toastr.min.css
+*= require gritter/jquery.gritter.css
+*= require dataTables.css
+*= require plugins/datapicker/datepicker3.css
+*= require plugins/chosen/chosen.css
+*= require animate.css
+*= require style.css
+*= require jquery-ui/jquery-ui.css
+*= require_self
+*/
+.ui-autocomplete-loading {
+    background: white url("spinner.gif") right center no-repeat;
+ }
+
+.uppercase-field {
+  text-transform: uppercase;
+}
+
+.toolbar-panel{
+    /*margin-bottom: 10px;*/
+    padding-bottom: 5px;
+    padding-top: 5px;
+    /*padding-left: 2px;*/
+
+}

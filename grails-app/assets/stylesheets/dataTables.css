@@ -1,0 +1,7 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+*= require plugins/dataTables/dataTables.bootstrap.css
+*= require plugins/dataTables/dataTables.responsive.css
+*= require plugins/dataTables/dataTables.tableTools.min.css

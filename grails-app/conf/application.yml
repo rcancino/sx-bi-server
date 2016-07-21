@@ -1,0 +1,161 @@
+---
+grails:
+    profile: web
+    codegen:
+        defaultPackage: sx.bi.server
+    spring:
+        transactionManagement:
+            proxies: false
+info:
+    app:
+        name: '@info.app.name@'
+        version: '@info.app.version@'
+        grailsVersion: '@info.app.grailsVersion@'
+spring:
+
+    groovy:
+        template:
+            check-template-location: false
+
+---
+grails:
+    mime:
+        disable:
+            accept:
+                header:
+                    userAgents:
+                        - Gecko
+                        - WebKit
+                        - Presto
+                        - Trident
+        types:
+            all: '*/*'
+            atom: application/atom+xml
+            css: text/css
+            csv: text/csv
+            form: application/x-www-form-urlencoded
+            html:
+              - text/html
+              - application/xhtml+xml
+            js: text/javascript
+            json:
+              - application/json
+              - text/json
+            multipartForm: multipart/form-data
+            pdf: application/pdf
+            rss: application/rss+xml
+            text: text/plain
+            hal:
+              - application/hal+json
+              - application/hal+xml
+            xml:
+              - text/xml
+              - application/xml
+    urlmapping:
+        cache:
+            maxsize: 1000
+    controllers:
+        defaultScope: singleton
+    converters:
+        encoding: UTF-8
+    views:
+        default:
+            codec: html
+        gsp:
+            encoding: UTF-8
+            htmlcodec: xml
+            codecs:
+                expression: html
+                scriptlets: html
+                taglib: none
+                staticparts: none
+endpoints:
+    jmx:
+        unique-names: true
+---
+hibernate:
+    cache:
+        queries: false
+        use_second_level_cache: true
+        use_query_cache: false
+        region.factory_class: 'org.hibernate.cache.ehcache.EhCacheRegionFactory'
+---
+dataSources:
+    dataSource:
+        pooled: true
+        dbCreate: update
+        url: jdbc:mysql://localhost:3306/sx_bi?autoReconnect=true
+        driverClassName: com.mysql.jdbc.Driver
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        username: root
+        password: sys
+    importacion:
+        pooled: true
+        dbCreate: "none"
+        url: jdbc:mysql://localhost/sw2?autoReconnect=true
+        driverClassName: com.mysql.jdbc.Driver
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        username: root
+        password: sys
+environments:
+    development:
+        dataSources:
+            dataSource:
+                dbCreate: update
+                url: jdbc:mysql://localhost/sx_bi
+            importacion:
+                dbCreate: none
+    test:
+        dataSources:
+            dataSource:
+                dbCreate: update
+                pooled: true
+                jmxExport: true
+                driverClassName: org.h2.Driver
+                url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+                username: sa
+                password:
+    production:
+        dataSources:
+            dataSource:
+                dbCreate: none
+                url: jdbc:mysql://10.10.1.228/sx_bi?autoReconnect=false
+                username: root
+                password: sys
+                properties:
+                    maxActive: 10
+                    maxIdle: 10
+                    minIdle: 3
+                    initialSize: 3
+                    minEvictableIdleTimeMillis: 1800000
+                    timeBetweenEvictionRunsMillis: 1800000
+                    numTestsPerEvictionRun: 3
+                    testOnBorrow: true
+                    testWhileIdle: true
+                    testOnReturn: true
+                    maxWait: 10000
+                    validationQuery: 'SELECT 1'
+                    validationQueryTimeout: 3
+                    validationInterval: 15000
+---
+grails:
+    databinding:
+        dateFormats:
+            - "yyyy-MM-dd'T'HH:mm:ss.SSSX"
+---
+environments:
+    development:
+        quartz:
+            autoStartup: true
+    test:
+        quartz:
+            autoStartup: false
+    production:
+            autoStartup: true
+---
+quartz:
+    monitor:
+      layout: application
+      showTriggerNames: true
+      showCountdown: true
+      showTickingClock: true
