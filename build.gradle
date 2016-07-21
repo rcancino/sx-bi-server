@@ -15,7 +15,7 @@ buildscript {
 }
 
 version "1.0"
-group "sx..bi.server"
+group "sx.bi.server"
 
 apply plugin:"eclipse"
 apply plugin:"idea"

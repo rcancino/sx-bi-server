@@ -33,7 +33,7 @@ class ImportadorDeFacVentasDetService {
         eliminarRegistros(fecha)
         String query = SQL
                 .replaceAll('@FECHA', fecha.format("yyyy/MM/dd"))
-
+        println query
         sql.eachRow(query) { v ->
             try {
                 def entity = toEntity(v)
@@ -47,7 +47,7 @@ class ImportadorDeFacVentasDetService {
 
 
 
-    def toEntity(Map v){
+    def toEntity(def v){
         def venta = new FactVentasDet(
                 tipo: v.tipo,
                 origenId: v.origenId,
@@ -99,7 +99,7 @@ class ImportadorDeFacVentasDetService {
 
     def eliminarRegistros(Date fecha){
         def deleted = FactVentasDet
-                .executeUpdate("delete from FacVentasDet where date(fecha) = ?",[fecha])
+                .executeUpdate("delete from FactVentasDet where date(fecha) = ?",[fecha])
         return deleted
     }
 
@@ -111,7 +111,7 @@ class ImportadorDeFacVentasDetService {
         ,(SELECT DIAID FROM DIAS F WHERE F.FECHA=V.FECHA) AS DIA_ID,1 AS SEMANA
         FROM  SX_VENTASDET D  USE INDEX (INDX_VDET2)
         JOIN sx_ventas V ON(V.CARGO_ID=D.VENTA_ID) JOIN sx_productos P ON(P.PRODUCTO_ID=D.PRODUCTO_ID) JOIN sx_lineas L ON(L.LINEA_ID=P.LINEA_ID)JOIN sx_clases C ON(C.CLASE_ID=P.CLASE_ID)JOIN sx_marcas M ON(M.MARCA_ID=P.MARCA_ID)
-        where P.PRODUCTO_ID <>5392 AND  D.fecha = '@FECHA 00:00:00'
+        where P.PRODUCTO_ID <>5392 AND   D.fecha BETWEEN '@FECHA 00:00:00' and '@FECHA 23:59:00'
         UNION
         SELECT 'DEV' AS TIPO,A.ABONO_ID AS ORIGEN_ID,D.INVENTARIO_ID,A.CLIENTE_ID,(CASE WHEN A.CLAVE=1 THEN 'MOSTRADOR' ELSE A.NOMBRE END) AS CLIENTE,A.FOLIO,A.ORIGEN,D.SUCURSAL_ID,(select s.nombre from sw_sucursales s where d.SUCURSAL_ID=s.SUCURSAL_ID) as SUC,DATE(A.FECHA) AS FECHA
         ,L.LINEA_ID,L.NOMBRE AS LINEA,M.MARCA_ID,M.NOMBRE AS MARCA,C.CLASE_ID,C.NOMBRE AS CLASE,P.PRODUCTO_ID,P.CLAVE,P.DESCRIPCION,P.UNIDAD,D.FACTORU,P.GRAMOS,P.KILOS AS KXMIL,P.CALIBRE,P.CARAS,P.DELINEA,P.NACIONAL

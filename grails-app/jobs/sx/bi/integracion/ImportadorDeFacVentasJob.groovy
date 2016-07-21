@@ -6,6 +6,8 @@ class ImportadorDeFacVentasJob {
     def group = 'Importadores'
     def description = 'Importador de FacVentasDet'
 
+    def importadorDeFacVentasDetService
+
     static triggers = {
         cron name: 'Trigger diario', startDelay: 60000, cronExpression:"0 0 20 ? * *"
         //simple repeatInterval: 5000l // execute job once in 5 seconds
