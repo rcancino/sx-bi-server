@@ -11,6 +11,7 @@ buildscript {
         classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.5.0"
         classpath "org.grails.plugins:hibernate4:5.0.0"
         classpath "org.grails.plugins:views-gradle:1.0.8"
+        //classpath "org.grails.plugins:views-gradle:1.1.0.RC1"
     }
 }
 

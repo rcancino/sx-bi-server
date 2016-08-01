@@ -1,0 +1,8 @@
+import sx.bi.AnalisisDeVentaMensual
+
+model {
+    Iterable<AnalisisDeVentaMensual> analisisDeVentaMensualList
+}
+
+json tmpl.analisisDeVentaMensual(analisisDeVentaMensualList ?: [])
+

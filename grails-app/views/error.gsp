@@ -22,11 +22,7 @@
                     <li>Path: ${path}</li>
                 </ul>
             </g:else>
-            <g:else>
-                <ul class="errors">
-                    <li>An error has occurred</li>
-                </ul>
-            </g:else>
+
         </div>
 
     </body>

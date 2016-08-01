@@ -5,7 +5,7 @@ import groovy.sql.Sql
 
 class EstadisticasController {
 
-	def dataSource_bi
+	def dataSource
 	
 
 	EstadisticasController(){
@@ -22,7 +22,7 @@ class EstadisticasController {
 			) as a
 			group by a.semana
 		"""
-		def sql = new Sql(dataSource_bi)
+		def sql = new Sql(dataSource)
 		def rows = sql.rows(q)
 		respond rows,[formats:['json']]
 	}
@@ -31,23 +31,23 @@ class EstadisticasController {
 		//def sql = new Sql(dataSource)
     String q = """
 			SELECT year(v.fecha) as YEAR		
-			,SUM(case when month(v.fecha)=1 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end) AS ENE		
-			,SUM(case when month(v.fecha)=2 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end) AS FEB		
-			,SUM(case when month(v.fecha)=3 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end) AS MAR		
-			,SUM(case when month(v.fecha)=4 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end) AS ABR		
-			,SUM(case when month(v.fecha)=5 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end) AS MAY		
-			,SUM(case when month(v.fecha)=6 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end) AS JUN		
-			,SUM(case when month(v.fecha)=7 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end) AS JUL		
-			,SUM(case when month(v.fecha)=8 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end) AS AGO
-			,SUM(case when month(v.fecha)=9 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end) AS SEP
-			,SUM(case when month(v.fecha)=10 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end) AS OCT
-			,SUM(case when month(v.fecha)=11 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end) AS NOV
-			,SUM(case when month(v.fecha)=12 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end) AS DIC
+			,ROUND (SUM(case when month(v.fecha)=1 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end),2) AS ENE
+			,ROUND (SUM(case when month(v.fecha)=2 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end),2) AS FEB
+			,ROUND (SUM(case when month(v.fecha)=3 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end),2) AS MAR
+			,ROUND (SUM(case when month(v.fecha)=4 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end),2) AS ABR
+			,ROUND (SUM(case when month(v.fecha)=5 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end),2) AS MAY
+			,ROUND (SUM(case when month(v.fecha)=6 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end),2) AS JUN
+			,ROUND (SUM(case when month(v.fecha)=7 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end),2) AS JUL
+			,ROUND (SUM(case when month(v.fecha)=8 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end),2) AS AGO
+			,ROUND (SUM(case when month(v.fecha)=9 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end),2) AS SEP
+			,ROUND (SUM(case when month(v.fecha)=10 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end),2) AS OCT
+			,ROUND (SUM(case when month(v.fecha)=11 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end),2) AS NOV
+			,ROUND (SUM(case when month(v.fecha)=12 then (V.IMP_NETO-V.COSTO_NETO)/1000 else 0 end),2) AS DIC
 			FROM fact_ventas_det v 
 			where fecha BETWEEN '2014/01/01' and '2016/12/31'
 			group by year(v.fecha)
 		"""
-		def sql = new Sql(dataSource_bi)
+		def sql = new Sql(dataSource)
 		def rows = sql.rows(q)
 		respond rows,[formats:['json']]
 	}
@@ -70,14 +70,38 @@ class EstadisticasController {
 	,IFNULL(ROUND((SUM(case when month(v.fecha)=11 then V.IMP_NETO else 0 end)-SUM(case when month(v.fecha)=11 then V.COSTO_NETO else 0 end))*100/SUM(case when month(v.fecha)=11 then V.IMP_NETO else 0 end),2),0) AS NOV
 	,IFNULL(ROUND((SUM(case when month(v.fecha)=12 then V.IMP_NETO else 0 end)-SUM(case when month(v.fecha)=12 then V.COSTO_NETO else 0 end))*100/SUM(case when month(v.fecha)=12 then V.IMP_NETO else 0 end),2),0) AS ENE
 	FROM fact_ventas_det v 
-	where fecha BETWEEN '2016/01/01' and '2016/12/31'
+	where fecha BETWEEN '2014/01/01' and '2016/12/31'
 	group by year(v.fecha)
 		"""
-		def sql = new Sql(dataSource_bi)
+		def sql = new Sql(dataSource)
 		def rows = sql.rows(q)
 		respond rows,[formats:['json']]
 	}
 
+	def margenYtd(){
+		//def sql = new Sql(dataSource)
+		String q = """
+    SELECT year(v.fecha) as YEAR
+	,IFNULL(ROUND((SUM(case when month(v.fecha)=1 then V.IMP_NETO else 0 end)-SUM(case when month(v.fecha)=1 then V.COSTO_NETO else 0 end))*100/SUM(case when month(v.fecha)=1 then V.IMP_NETO else 0 end),2),0) AS ENE
+	,IFNULL(ROUND((SUM(case when month(v.fecha)=2 then V.IMP_NETO else 0 end)-SUM(case when month(v.fecha)=2 then V.COSTO_NETO else 0 end))*100/SUM(case when month(v.fecha)=2 then V.IMP_NETO else 0 end),2),0) AS FEB
+	,IFNULL(ROUND((SUM(case when month(v.fecha)=3 then V.IMP_NETO else 0 end)-SUM(case when month(v.fecha)=3 then V.COSTO_NETO else 0 end))*100/SUM(case when month(v.fecha)=3 then V.IMP_NETO else 0 end),2),0) AS MAR
+	,IFNULL(ROUND((SUM(case when month(v.fecha)=4 then V.IMP_NETO else 0 end)-SUM(case when month(v.fecha)=4 then V.COSTO_NETO else 0 end))*100/SUM(case when month(v.fecha)=4 then V.IMP_NETO else 0 end),2),0) AS ABR
+	,IFNULL(ROUND((SUM(case when month(v.fecha)=5 then V.IMP_NETO else 0 end)-SUM(case when month(v.fecha)=5 then V.COSTO_NETO else 0 end))*100/SUM(case when month(v.fecha)=5 then V.IMP_NETO else 0 end),2),0) AS MAY
+	,IFNULL(ROUND((SUM(case when month(v.fecha)=6 then V.IMP_NETO else 0 end)-SUM(case when month(v.fecha)=6 then V.COSTO_NETO else 0 end))*100/SUM(case when month(v.fecha)=6 then V.IMP_NETO else 0 end),2),0) AS JUN
+	,IFNULL(ROUND((SUM(case when month(v.fecha)=7 then V.IMP_NETO else 0 end)-SUM(case when month(v.fecha)=7 then V.COSTO_NETO else 0 end))*100/SUM(case when month(v.fecha)=7 then V.IMP_NETO else 0 end),2),0) AS JUL
+	,IFNULL(ROUND((SUM(case when month(v.fecha)=8 then V.IMP_NETO else 0 end)-SUM(case when month(v.fecha)=8 then V.COSTO_NETO else 0 end))*100/SUM(case when month(v.fecha)=8 then V.IMP_NETO else 0 end),2),0) AS AGO
+	,IFNULL(ROUND((SUM(case when month(v.fecha)=9 then V.IMP_NETO else 0 end)-SUM(case when month(v.fecha)=9 then V.COSTO_NETO else 0 end))*100/SUM(case when month(v.fecha)=9 then V.IMP_NETO else 0 end),2),0) AS SEP
+	,IFNULL(ROUND((SUM(case when month(v.fecha)=10 then V.IMP_NETO else 0 end)-SUM(case when month(v.fecha)=10 then V.COSTO_NETO else 0 end))*100/SUM(case when month(v.fecha)=10 then V.IMP_NETO else 0 end),2),0) AS OCT
+	,IFNULL(ROUND((SUM(case when month(v.fecha)=11 then V.IMP_NETO else 0 end)-SUM(case when month(v.fecha)=11 then V.COSTO_NETO else 0 end))*100/SUM(case when month(v.fecha)=11 then V.IMP_NETO else 0 end),2),0) AS NOV
+	,IFNULL(ROUND((SUM(case when month(v.fecha)=12 then V.IMP_NETO else 0 end)-SUM(case when month(v.fecha)=12 then V.COSTO_NETO else 0 end))*100/SUM(case when month(v.fecha)=12 then V.IMP_NETO else 0 end),2),0) AS ENE
+	FROM fact_ventas_det v
+	where fecha BETWEEN '2014/01/01' and '2016/12/31'
+	group by year(v.fecha)
+		"""
+		def sql = new Sql(dataSource)
+		def rows = sql.rows(q)
+		respond rows,[formats:['json']]
+	}
 
 	def toneladas(){
 		//def sql = new Sql(dataSource)
@@ -99,7 +123,7 @@ class EstadisticasController {
 	where fecha BETWEEN '2016/01/01' and '2016/12/31'
 	group by year(v.fecha)
 		"""
-		def sql = new Sql(dataSource_bi)
+		def sql = new Sql(dataSource)
 		def rows = sql.rows(q)
 		respond rows,[formats:['json']]
 	}
@@ -125,7 +149,7 @@ class EstadisticasController {
 	where fecha BETWEEN '2016/01/01' and '2016/12/31'
 	group by year(v.fecha)
 		"""
-		def sql = new Sql(dataSource_bi)
+		def sql = new Sql(dataSource)
 		def rows = sql.rows(q)
 		respond rows,[formats:['json']]
 	}
@@ -141,7 +165,7 @@ class EstadisticasController {
 	where fecha BETWEEN '2016/01/01' and '2016/12/31'
 	group by year(v.fecha)
 		"""
-		def sql = new Sql(dataSource_bi)
+		def sql = new Sql(dataSource)
 		def rows = sql.rows(q)
 		respond rows,[formats:['json']]
 	}
@@ -156,7 +180,7 @@ class EstadisticasController {
 	where fecha BETWEEN '2016/01/01' and '2016/12/31'
 	group by year(v.fecha)
 		"""
-		def sql = new Sql(dataSource_bi)
+		def sql = new Sql(dataSource)
 		def rows = sql.rows(q)
 		respond rows,[formats:['json']]
 	}

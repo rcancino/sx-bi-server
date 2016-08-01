@@ -42,6 +42,14 @@ class UrlMappings {
         
         "/api/bi/estadisticas/comparativoCalificacion"(controller:'estadisticas', action: 'comparativoCalificacion', method: 'GET')
 
+        "/api/bi/analisis/margenPorcentaje"(controller:'estadisticas', action: 'margenPorcentaje', method:'GET')
+        "/api/bi/analisis/ventas/utilidad"(controller:'estadisticas', action: 'margenVenta', method:'GET')
+
+
+
+        "/api/bi/analisisDeVentasMensuales"(resources: 'analisisDeVentaMensual')
+
+
 
         "/"(view:"/index")
         "500"(view:'/error')

@@ -1,0 +1,11 @@
+import sx.bi.AnalisisDeVentaMensual
+
+model {
+    AnalisisDeVentaMensual analisisDeVentaMensual
+}
+
+json g.render(analisisDeVentaMensual,[excludes:['mes','dateCreated','lastUpdated']]){
+    mes analisisDeVentaMensual.mes.id
+    margen analisisDeVentaMensual.getMargen()
+    margenYtd analisisDeVentaMensual.getMargenYtd()
+}

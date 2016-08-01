@@ -41,8 +41,10 @@ class ClienteAtrasoMax {
 
 	BigDecimal atrasomas30=0
 
-    static constraints = {
-    }
+	static mapping = {
+		id generator:'uuid'
+
+	}
 
 
 }
