@@ -92,7 +92,7 @@ dataSources:
     importacion:
         pooled: true
         dbCreate: "none"
-        url: jdbc:mysql://localhost/sw2?autoReconnect=true
+        url: jdbc:mysql://10.10.1.228/produccion?autoReconnect=true
         driverClassName: com.mysql.jdbc.Driver
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         username: root

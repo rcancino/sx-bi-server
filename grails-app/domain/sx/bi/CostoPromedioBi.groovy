@@ -24,8 +24,7 @@ class CostoPromedioBi {
 	BigDecimal costor
 
     static constraints = {
-    	producto  nullable:true
-    }
+    	
 
     static mapping = {
     	id generator:'uuid'

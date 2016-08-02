@@ -15,6 +15,7 @@ class ImportadorDeFacVentasJob {
 
     def execute() {
         log.info('Importando FacVentasDet....')
+        println 'Importando informacion de ventas.......'
 
     }
 
