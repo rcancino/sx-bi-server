@@ -23,8 +23,6 @@ class CostoPromedioBi {
 
 	BigDecimal costor
 
-    static constraints = {
-    	
 
     static mapping = {
     	id generator:'uuid'
